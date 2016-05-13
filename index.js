@@ -30,7 +30,8 @@ io.on('connection',function(socket){
 
 //WHEN USER CHANGES THE TEXTAREA
 	socket.on('user input' , function(msg){
-		io.sockets.in(room).emit('user input', msg);
+	//	io.sockets.in(room).emit('user input', msg);
+		socket.broadcast.to(room).emit('user input', msg);
 	});
 
 //WHEN USER HITS THE RUN BUTTON
