@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+        <link rel="stylesheet" href="https://bootswatch.com/cyborg/bootstrap.min.css">
+  </head>
+  <style>
+
+     html, body, .container-table {
+    height: 100%;
+    }
+    .container-table {
+        display: table;
+    }
+    .vertical-center-row {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    #roomName , #userName{
+       border: 0;
+        outline: 0;
+        background: transparent;
+        border-bottom: 2px solid white;
+        width: 300px;
+        color: white;
+        font-size: 200%;
+    }
+    input, input[placeholder]{
+      text-align:center;
+    }
+    #button{
+      margin-top: 5%;
+    }
+
+  </style>
+  <body>
+
+  <div class="container container-table">
+    <div class="row vertical-center-row">
+        <div class="text-center col-md-12 ">
+
+                <form>
+                <span>
+                     <input id="userName" placeholder="Enter your name" autocomplete="off"></input>
+                     <input id="roomName" placeholder="Enter session name" autocomplete="off"></input><br>
+                     <button class="btn btn-default" id="button" type=submit >Enter! </button>
+                </span>
+                </form>
+
+        </div>
+    </div>
+</div>
+    
+
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+
+$('#button').click(function(){
+  var url = "/" + $('#roomName').val()+ "/" + $('#userName').val();
+  window.location.href = url;
+  return false;
+});
+
+$('#roomName').on({
+  keydown: function(e){
+    if(e.which === 32)
+      return false;
+  }
+});
+  
+
+</script>
+  </body>
+</html>
