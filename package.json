@@ -10,7 +10,8 @@
   "dependencies": {
     "express": "^4.13.4",
     "sandbox": "^0.8.6",
-    "socket.io": "^1.4.6"
+    "socket.io": "^1.4.6",
+    "ejs": "2.4.1"
   },
   "description": ""
 }
