@@ -39,7 +39,7 @@
     <% include partials/navbar.ejs %>
     
     <div class="container">
-    	<div class="row">
+    	<div class="row"><br>
        		<div class="col-lg-6" id="userdiv">
      <!--  			<textarea id="usercode"></textarea> -->
        		</div>
@@ -67,7 +67,7 @@
 
       $(document).ready(function () {
 
-        var boilerplate = "var step1 = 'Write your javascript code here.';\nvar step2 = 'Click on run to compile!'; \n\nconsole.log(step1+step2);"
+        var boilerplate = "/*Your code is shared in real time to everyone in this session*/\n\nvar step1 = 'Write your javascript code here.\\n';\nvar step2 = 'Click on run to compile!'; \n\nconsole.log(step1+step2);"
 
     window.codemirror1 = CodeMirror($('#userdiv').get(0), {
         value: boilerplate,
@@ -113,6 +113,13 @@
   // ONCLICK RUN FUNCTION
   $('#run').click(function(){
     socket.emit('run code',codemirror1.getValue(" "));
+    return false;
+  });
+
+  // ONCLICK CLEAR FUNCTION
+  $('#clear').click(function(){
+    codemirror1.setValue("");
+    socket.emit('user input',codemirror1.getValue("\n"));
     return false;
   });
 
