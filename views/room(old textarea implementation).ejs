@@ -41,7 +41,9 @@
     <div class="container">
     	<div class="row">
        		<div class="col-lg-6" id="userdiv">
-     <!--  			<textarea id="usercode"></textarea> -->
+       			<textarea id="usercode">var string = "Write your javascript code here. Click on run to compile!";
+
+console.log(string);</textarea>
        		</div>
        		<div class="col-lg-6">
      			<pre id="output"></pre>
@@ -64,18 +66,24 @@
     <script src="/lib/codemirror.js"></script>
     <script src="/mode/javascript/javascript.js"></script>
     <script type="text/javascript">
-
       $(document).ready(function () {
 
-        var boilerplate = "var step1 = 'Write your javascript code here.';\nvar step2 = 'Click on run to compile!'; \n\nconsole.log(step1+step2);"
-
     window.codemirror1 = CodeMirror($('#userdiv').get(0), {
-        value: boilerplate,
+        value: $('#usercode').val(),
         mode:  "javascript",
         styleActiveLine: true,
         lineNumbers: true,
      });
 
+    codemirror1.on("change",function(){
+
+        alert(codemirror1.getValue("\n"));
+    });
+    });
+    </script>
+<!-- Textarea code formatting -->
+<script>
+  
   var socket = io();
   
   // GETTING ROOM NAME USING EJS
@@ -85,22 +93,18 @@
   });
 
   socket.on('welcome me',function(user){
-    socket.emit('user input',codemirror1.getValue("\n"));
+    socket.emit('user input',$('#usercode').val());
   });
 
 
   // MONITORING EVERY CHANGE ON THE INPUT TEXTAREA
-/*  $('#usercode').on('input',function(){
+  $('#usercode').on('input',function(){
     socket.emit('user input',$('#usercode').val());
-  });*/
-  codemirror1.on("inputRead",function(){
-    socket.emit('user input',codemirror1.getValue("\n"));
   });
 
   // LISTENING TO BROADCASTS FROM OTHER TEXTAREAS IN THE SAME ROOM
   socket.on('user input',function(msg){
-  //  $('#usercode').val(msg);
-    codemirror1.setValue(msg)
+    $('#usercode').val(msg);
   });
 
   // DISPLAYING THE OUTPUT FROM SANDBOXED COMPILER
@@ -112,7 +116,7 @@
 
   // ONCLICK RUN FUNCTION
   $('#run').click(function(){
-    socket.emit('run code',codemirror1.getValue(" "));
+    socket.emit('run code',$('#usercode').val());
     return false;
   });
 
@@ -122,7 +126,7 @@
 	  	var box = document.getElementById('output');
 		box.scrollTop = box.scrollHeight;
 	};
-});
+
 </script>
   </body>
 </html>
